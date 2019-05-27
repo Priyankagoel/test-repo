@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+const sequelize = require("./util/database");
+
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -16,6 +19,15 @@ app.use((req, res, next) => {
 const feedRoutes = require("./routes/feed");
 
 app.use('/feed', feedRoutes);
+
+sequelize
+    .sync()
+    .then(result => {
+        console.log(result);
+    })
+    .catch(err =>{
+        console.log(err);
+    })
 
 app.listen(8080, function() {
     console.log(`Server listening on port 8080`);
