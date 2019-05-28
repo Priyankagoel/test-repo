@@ -3,10 +3,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const sequelize = require("./util/database");
+const sequelize = require("./utils/database");
 
 
 app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin','*');
@@ -16,18 +18,24 @@ app.use((req, res, next) => {
 
 });
 
-const feedRoutes = require("./routes/feed");
+const dashboardRoutes = require("./routes/dashboard");
+const authRoutes = require("./routes/auth");
 
-app.use('/feed', feedRoutes);
+app.use(dashboardRoutes);
+app.use('/auth', authRoutes);
+
+app.set("view engine", "ejs");
 
 sequelize
-    .sync()
-    .then(result => {
-        console.log(result);
-    })
-    .catch(err =>{
-        console.log(err);
-    })
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch(err => {
+    console.error("Unable to connect to the database:", err);
+  });
+
+sequelize.sync();
 
 app.listen(8080, function() {
     console.log(`Server listening on port 8080`);
