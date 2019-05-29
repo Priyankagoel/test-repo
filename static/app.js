@@ -1,5 +1,5 @@
 var app = angular.module("stackOverflow", ['angular.filter']);
-app.config(['$interpolateProvider', function($interpolateProvider ,$locationProvider) {
+app.config(['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('{{');
     $interpolateProvider.endSymbol('}}');
 }])
@@ -51,11 +51,30 @@ app.controller('addQueController',["$scope", "$http", function($scope, $http) {
         }, function errorCallback(response) {
         
       })
-  }
+  },
 
   $scope.addAnswer = function(){
     $http({
       method: 'POST',
+      url: '/api/v1/answer',
+      data: $scope.answer
+
+
+    }).then(function successCallback(response) {
+          console.log("response",response.data.result);
+        
+        
+      }, function errorCallback(response) {
+        
+    })  
+  },
+
+  $scope.incVote = function(){
+    
+    $scope.answer.vote = $scope.answer.vote + 1;
+
+    $http({
+      method: 'PUT',
       url: '/api/v1/answer',
       data: $scope.answer
 

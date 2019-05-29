@@ -1,15 +1,15 @@
 const User = require("../models/user");
 
 exports.getSignup = (req, res, next) => {
-    res.render('auth/signup');
+    return res.render('auth/signup');
 };
 
 exports.getLogin = (req, res, next) => {
-    res.render('auth/login');
+    return res.render('auth/login');
 };
 
 exports.postLogin = (req, res, next) => {
-    return res.json(req.body);
+    return res.redirect('/dashboard');
 };
 
 module.exports.postSignup = async (req, res) => {
@@ -43,5 +43,5 @@ module.exports.postSignup = async (req, res) => {
       console.log(err);
     }
 
-    return res.json(req.body);
+    return res.redirect("/dashboard");
   };

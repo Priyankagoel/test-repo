@@ -11,6 +11,7 @@ router.post('/api/v1/question',dashboardController.postQuestions);
 router.get('/api/v1/answer',dashboardController.getAnswers);
 router.post('/api/v1/answer',dashboardController.postAnswers);
 
+router.get('/dashboard',dashboardController.getDashboard);
 
 
 

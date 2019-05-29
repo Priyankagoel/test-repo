@@ -1,10 +1,13 @@
 const express = require("express");
+const path = require("path");
+
 const bodyParser = require("body-parser");
 
 const app = express();
 
 const sequelize = require("./utils/database");
 
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
