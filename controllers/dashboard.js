@@ -16,3 +16,15 @@ exports.postQuestions = async(req, res, next) => {
     });
 };  
 
+exports.getAnswers = async(req, res, next) => {
+    return res.json({"answer": await Answer.findAll()});
+};  
+
+exports.postAnswers = async(req, res, next) => {
+    const body = req.body;
+
+    answer = await Answer.create({
+        answer: body.answer,
+        queId: body.queId
+    });
+}; 

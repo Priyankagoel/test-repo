@@ -9,12 +9,12 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-    res.redirect('/dashboard');
+    return res.json(req.body);
 };
 
 module.exports.postSignup = async (req, res) => {
 
-  return res.json(req.body);
+  // return res.json(req.body);
     const body = req.body;
     console.log("body",body);
     // return console.log(req.file);
@@ -43,5 +43,5 @@ module.exports.postSignup = async (req, res) => {
       console.log(err);
     }
 
-    return res.redirect("/dashboard");
+    return res.json(req.body);
   };

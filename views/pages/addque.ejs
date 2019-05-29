@@ -1,18 +1,24 @@
 <%- include('../includes/head.ejs') -%>
 
-
+<body ng-controller = "addQueController">
 <h2>Add Question</h2>
 
-<form action="/api/v1/question" method="POST">
+<form>
 
   <div class="container">
     <label for="question"><b>Question</b></label>
-    <input type="text" placeholder="Enter Question" name="question" required>
-
+    <input type="text" placeholder="Enter Question" ng-model="question.question" name="question" required>  
     
-        
-    <button type="submit">Add Question</button>
+    <button ng-click="addQuestion()">Add Answers</button>
+
+  </div>
+  <div ng-if="show">
+      <input type="text" ng-model="answer.answer" required>  
+      <button ng-click="addAnswer()">Add More Answers</button>
+
   </div>
 </form>
+
+
 
 <%- include('../includes/foot.ejs') -%>
