@@ -1,24 +1,42 @@
 <%- include('../includes/head.ejs') -%>
 
-<body ng-controller = "addQueController">
+<body>
 <h2>Add Question</h2>
 
-<form>
+<form method="post"  action="http://localhost:8080/api/v1/add_question">
 
   <div class="container">
     <label for="question"><b>Question</b></label>
-    <input type="text" placeholder="Enter Question" ng-model="question.question" name="question" required>  
-    
-    <button ng-click="addQuestion()">Add Answers</button>
-
+    <input type="text" placeholder="Enter Question" name="question" required>  
   </div>
-  <div ng-if="show">
-      <input type="text" ng-model="answer.answer" required>  
-      <button ng-click="addAnswer()">Add More Answers</button>
 
+  <div class="optionBox">
+      <div class="block">
+          <input type="text" name="answers"/> <span class="remove">Remove Answer</span>
+      </div>
+      <div class="block">
+          <span class="add">Add answer</span>
+      </div>
   </div>
+
+  <!-- <div>
+      <input type="text" name="answers[]" required> 
+  </div> -->
+  <input type="submit" value="Submit">
 </form>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+
+ $('.add').click(function() {
+  $(this).before('<div class="block"><input type="text" name="answers" /><span class="remove">Remove answer</span></div>');
+});
+
+$(document).on('click','.remove',function() {
+ 	$(this).parent('div').remove();
+});
+</script>
 
 
 <%- include('../includes/foot.ejs') -%>

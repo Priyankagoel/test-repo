@@ -55,3 +55,16 @@ span.psw {
      width: 100%;
   }
 }
+
+.block {
+  display: block;
+}
+input {
+  width: 50%;
+  display: inline-block;
+}
+span {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: underline;
+}

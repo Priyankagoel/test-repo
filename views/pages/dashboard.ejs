@@ -7,18 +7,17 @@
                     <h2>Polling List</h2>
             </div>
             <div class="col-md-4">
-                <button>Add Question</button> 
+                <button ng-click="addQue()" >Add Question</button> 
             </div>     
                 
         </div>
         
         <div ng-repeat="question in questions">
             <hr>
-            <p><strong>Q.NO:{{$index}} {{question.question}}</strong></p>
+            <p><strong>Q.NO:{{$index + 1}} {{question.question}}</strong></p>
             <div ng-repeat="answer in answers">
                 <div ng-if="answer.queId==question.id">
-                    <p>{{answer.answer}}</p>
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <p><strong>Ans: </strong>{{answer.answer}} <i class="fa fa-thumbs-up" aria-hidden="true" ng-click="incVote(answer)"></i> </p>
                 </div>
 
             </div>
