@@ -2,18 +2,22 @@ const Question = require("../models/question");
 const Answer = require("../models/answer");
 const { validationResult } = require("express-validator/check");
 
+// for rendering the dashboard
 exports.getDashboard = (req, res, next) => {
     return res.render("pages/dashboard");
 };
 
+// for rendering the add question form page
 exports.getAddQue = (req, res, next) => {
     return res.render("pages/addque");
 };
 
+// to get questions from database
 exports.getQuestions = async(req, res, next) => {
     return res.json({"question": await Question.findAll()});
 };  
 
+// to post questions in database
 exports.postQuestions = async(req, res, next) => {
     const body = req.body;
 
@@ -25,25 +29,27 @@ exports.postQuestions = async(req, res, next) => {
     return res.json(question.dataValues)
 };  
 
+// to get answers from database
 exports.getAnswers = async(req, res, next) => {
     return res.json({"answer": await Answer.findAll()});
 };  
 
-exports.postAnswers = async(req, res, next) => {
-    const body = req.body;
+// exports.postAnswers = async(req, res, next) => {
+//     const body = req.body;
 
-    try{
-        answer = await Answer.create({
-        answer: body.answer,
-        queId: body.queId
-      });
-    }catch(err){
-        console.log(err);
-    }
+//     try{
+//         answer = await Answer.create({
+//         answer: body.answer,
+//         queId: body.queId
+//       });
+//     }catch(err){
+//         console.log(err);
+//     }
     
-    return res.json(answer.dataValues)
-}; 
+//     return res.json(answer.dataValues)
+// }; 
 
+// update answers in database eg: to update votes
 exports.putAnswers = async(req, res, next) => {
     const body = req.body;
     console.log("putbody",body);
@@ -63,21 +69,22 @@ exports.putAnswers = async(req, res, next) => {
 }; 
 
 
-
+//  to add new question and answers in database
 exports.addQuestion = async(req,res,next)=>{
     const body = req.body;
     
-
+    // to add que in database
     question = await Question.create({
         question: body.question,
         userId: 1
     });
     
+    // to add answers in database
     for(var i =0;i<body.answers.length;i++){
         answer = await Answer.create({
             answer: body.answers[i],
             queId: question.dataValues.id
         });
     }
-    // return res.json(answer.dataValues)
+    return res.json('body');
 }

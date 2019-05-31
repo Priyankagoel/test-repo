@@ -5,7 +5,7 @@ app.config(['$interpolateProvider', function($interpolateProvider) {
 }])
 
 
-
+// Dashboard Controller
 app.controller('dashboardController',["$scope", "$http", "$window", function($scope, $http, $window) {
 
 
@@ -32,10 +32,12 @@ app.controller('dashboardController',["$scope", "$http", "$window", function($sc
         
     })
 
+    //for redirect to add question page
     $scope.addQue = function(){
       $window.location.href = '/add/question';
     }
 
+    // for update the votes
     $scope.incVote = function(answer){
     
           
