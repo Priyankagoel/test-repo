@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const Answers = require("./answer")
 
 const sequelize = require("../utils/database");
 
@@ -19,6 +20,10 @@ const Question = sequelize.define("question", {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+  
 });
+
+
+Question.hasMany(Answers, {as: 'Answers'});
 
 module.exports = Question;

@@ -51,7 +51,7 @@ app.controller('dashboardController',["$scope", "$http", "$window", function($sc
       
       
           }).then(function successCallback(response) {
-                console.log("response",response.data.result);
+                console.log("response",response.data);
               
               
             }, function errorCallback(response) {

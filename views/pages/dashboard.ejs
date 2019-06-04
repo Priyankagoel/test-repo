@@ -16,7 +16,7 @@
             <hr>
             <p><strong>Q.NO:{{$index + 1}} {{question.question}}</strong></p>
             <div ng-repeat="answer in answers">
-                <div ng-if="answer.queId==question.id">
+                <div ng-if="answer.questionId==question.id">
                     <p><strong>Ans: </strong>{{answer.answer}} <i class="fa fa-thumbs-up" aria-hidden="true" ng-click="incVote(answer)">{{answer.vote}}</i> </p>
                 </div>
 

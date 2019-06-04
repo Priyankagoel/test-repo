@@ -1,4 +1,6 @@
 const Sequelize = require("sequelize");
+const Questions = require("./question")
+
 
 const sequelize = require("../utils/database");
 
@@ -17,12 +19,14 @@ const Answer = sequelize.define('answer',{
 
     vote: {
         type: Sequelize.INTEGER,
-    },
-
-    queId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
     }
+
+    // queId: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false
+    // }
 });
+
+// Answer.belongsTo(Questions);
 
 module.exports = Answer;

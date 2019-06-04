@@ -3,11 +3,17 @@ const path = require("path");
 
 const bodyParser = require("body-parser");
 
+// const csrf = require('csurf');
+// const session = require("express-session");
+// const flash = require('connect-flash');
+
 const app = express();
 
 const sequelize = require("./utils/database");
 
 app.use(express.static(path.join(__dirname, "public")));
+
+const authMiddleware =  require('./middlewares/authMiddleware');
 
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
@@ -20,6 +26,18 @@ app.use((req, res, next) => {
     next();
 
 });
+
+// app.use(
+//   session({
+//     secret: "thisIsSecretForEncrption", //for signing hash which secretl stores our id to session
+//     // secret: "keyboard cat",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { /* secure: true  */ }
+//   })
+// );
+
+// app.use(flash());
 
 const dashboardRoutes = require("./routes/dashboard");
 const authRoutes = require("./routes/auth");

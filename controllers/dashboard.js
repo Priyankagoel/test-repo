@@ -83,7 +83,7 @@ exports.addQuestion = async(req,res,next)=>{
     for(var i =0;i<body.answers.length;i++){
         answer = await Answer.create({
             answer: body.answers[i],
-            queId: question.dataValues.id
+            questionId: question.dataValues.id
         });
     }
     return res.json('body');
