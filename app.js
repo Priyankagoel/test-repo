@@ -13,7 +13,7 @@ const sequelize = require("./utils/database");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const authMiddleware =  require('./middlewares/authMiddleware');
+const authMiddleware =  require('./middlewares/is-auth');
 
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
@@ -29,8 +29,7 @@ app.use((req, res, next) => {
 
 // app.use(
 //   session({
-//     secret: "thisIsSecretForEncrption", //for signing hash which secretl stores our id to session
-//     // secret: "keyboard cat",
+//     secret: "thisIsSecretForEncryption", //for signing hash which secretl stores our id to session
 //     resave: false,
 //     saveUninitialized: true,
 //     cookie: { /* secure: true  */ }
@@ -42,8 +41,8 @@ app.use((req, res, next) => {
 const dashboardRoutes = require("./routes/dashboard");
 const authRoutes = require("./routes/auth");
 
-app.use(dashboardRoutes);
 app.use('/auth', authRoutes);
+app.use(authMiddleware,dashboardRoutes);
 
 app.set("view engine", "ejs");
 
@@ -58,6 +57,6 @@ sequelize
 
 sequelize.sync();
 
-app.listen(8080, function() {
+app.listen(3000, function() {
     console.log(`Server listening on port 8080`);
 });

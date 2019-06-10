@@ -14,7 +14,7 @@ app.controller('dashboardController',["$scope", "$http", "$window", function($sc
         method: 'GET',
         url: '/api/v1/question' 
       }).then(function successCallback(response) {
-          $scope.questions = response.data.question;
+          $scope.questions = response.data.questions;
           
          
         }, function errorCallback(response) {

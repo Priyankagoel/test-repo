@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 
 exports.getSignup = (req, res, next) => {
@@ -9,7 +12,49 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-    return res.redirect('/dashboard');
+    // return res.redirect('/dashboard');
+    const body = req.body;
+    // console.log("body",body);
+    
+
+    if (!body.email || !body.password) return res.redirect("/auth/login");
+  
+    User.findOne({
+      where: {
+        email: body.email
+      }
+    })
+      .then(user => {
+        let loadedUser = user;
+        console.log(loadedUser);
+        if (!user) return res.status(404).json({ error: "User not found!" });
+  
+        isAuth = bcrypt.compareSync(body.password, user.password);
+  
+        if (isAuth) {
+          // as user is created now, initialize session with login status
+          // req.session.isLoggedIn = true;
+          // req.session.user = {
+          //   id: user.id,
+          //   email: user.email,
+          //   name: user.name
+          // };
+          const token = jwt.sign(
+            {
+              email : loadedUser.email,
+              userId: loadedUser.id.toString()
+            },
+            'somesupersupersecret',
+            {expiresIn: '1h'}
+          );
+          res.status(200).json({token: token, userId: loadedUser.id.toString() });
+          // return res.redirect("/dashboard");
+        } else {
+          // handle error
+          return res.redirect("/auth/login");
+        }
+      })
+      .catch(err => console.log(err));
 };
 
 module.exports.postSignup = async (req, res) => {
@@ -32,11 +77,11 @@ module.exports.postSignup = async (req, res) => {
     if (user) return res.redirect("/auth/signup");
   
     // if user does`nt exists create one
-  
+    hashedPassword = bcrypt.hashSync(body.password,12);
     try {
       user = await User.create({
         email: body.email,
-        password: body.password
+        password: hashedPassword
       });
       console.log(user);
     } catch (err) {
