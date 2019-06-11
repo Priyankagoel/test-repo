@@ -90,3 +90,7 @@ module.exports.postSignup = async (req, res) => {
 
     return res.redirect("/dashboard");
   };
+
+exports.getRedirect = (req, res, next) => {
+  return res.send('redirect url');
+};
