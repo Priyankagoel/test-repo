@@ -28,17 +28,17 @@ passport.use(
                 googleId: profile.id
               });
           }
-          console.log('lo....',loadedUser);
+          
     
           
-            const token = jwt.sign(
-              {
+            // const token = jwt.sign(
+            //   {
                 
-                userId: loadedUser.id.toString()
-              },
-              'somesupersupersecret',
-              {expiresIn: '1h'}
-            );
+            //     userId: loadedUser.id.toString()
+            //   },
+            //   'somesupersupersecret',
+            //   {expiresIn: '1h'}
+            // );
             // res.status(200).json({token: token, userId: loadedUser.id.toString() });
             // return res.redirect("/dashboard");
           

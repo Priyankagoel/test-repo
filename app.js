@@ -1,12 +1,13 @@
 const express = require("express");
 const path = require("path");
 const passportSetup = require("./config/passport-setUp");
+const passport = require("passport");
 
 const bodyParser = require("body-parser");
 
 // const csrf = require('csurf');
-// const session = require("express-session");
-// const flash = require('connect-flash');
+const session = require("express-session");
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -28,16 +29,19 @@ app.use((req, res, next) => {
 
 });
 
-// app.use(
-//   session({
-//     secret: "thisIsSecretForEncryption", //for signing hash which secretl stores our id to session
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { /* secure: true  */ }
-//   })
-// );
+app.use(
+  session({
+    secret: "thisIsSecretForEncryption", //for signing hash which secretl stores our id to session
+    resave: false,
+    saveUninitialized: true,
+    cookie: { /* secure: true  */ }
+  })
+);
 
-// app.use(flash());
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const dashboardRoutes = require("./routes/dashboard");
 const authRoutes = require("./routes/auth");
