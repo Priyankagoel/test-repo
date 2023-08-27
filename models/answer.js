@@ -3,7 +3,7 @@ const Questions = require("./question")
 
 
 const sequelize = require("../utils/database");
-
+//hello
 const Answer = sequelize.define('answer',{
     id: {
         type: Sequelize.INTEGER,
